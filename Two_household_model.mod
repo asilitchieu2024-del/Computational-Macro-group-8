@@ -11,6 +11,8 @@ var
     RK //Rental rate of capital
     C // Aggregate Consumption
     L // Aggregate Labor
+    lambda //Lagrange multiplier
+    q //multiplier on capital accumulation NEED TO CHECK
 ;
 
 //Exogenous Shocks
@@ -47,3 +49,14 @@ chi   = (1-alpha)*Abar*kappa^alpha / ((Ybar - delta*kappa*(1/3) - Gbar)*(1/3)^(1
 // Model Equations
 model;
 // Ricardian Household
+// FOC w.r.t CR
+1/CR = lambda;
+
+// FOC w.r.t LR
+chi*LR^eta = lambda*W;
+
+// FOC w.r.t I
+q=lambda;
+
+// FOC w.r.t K(+1)
+q=beta*(lambda(+1)*RK(+1)+(1-delta)*q(+1));
