@@ -11,6 +11,7 @@ their after-tax labor income each period.
   setup, and impulse-response simulation.
 - `get_ss.m` — required steady-state helper called by the model. This file is
   not currently included in this folder.
+- 'plot_results.m' - loads the results from all 5 different mu tests and plots it
 
 ## Running the model
 
