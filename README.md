@@ -1,67 +1,57 @@
-# Fiscal Multipliers with Hand-to-Mouth Households
+# Computational Macroeconomic Presentation Refrence 
 
-This project studies how the response to a government-spending shock changes
-with the share of hand-to-mouth households. Ricardian households save and
-invest, while hand-to-mouth households consume their after-tax labor income
-each period.
-
-## Requirements
-
-- GNU Octave **11.3.0** (`aarch64-apple-darwin25.4.0`)
-- Dynare **7.1**, installed and available to Octave
+This folder contains a Dynare model where the program shows how fiscal multipliers changes with the share of hand-to-mouth households. The model has two household types: Ricardian households, which save and invest, and hand-to-mouth households, which consume their after-tax labor income each period.
 
 ## Files
 
-- `main.mod` — Dynare model, calibration, steady-state setup, and simulations
-  for five hand-to-mouth household shares.
-- `get_ss.m` — steady-state helper called by the model; uses `fsolve`.
-- `plot_results.m` — plots the impulse responses across the five scenarios.
+- `Two_household_model.mod` — Dynare model set-up 
+- `Two_household_model.log` - text record of dynare run 
+- `get_ss.m` - program that computes steady state called by mod file
 
-These files should remain together in the repository root.
+## Requirements
+
+- MATLAB or Octave with dynare
+- Dynare 7.1, installed and available on MATLAB/Octave
 
 ## Running the model
 
-In Octave, change to the repository root and run:
-
-```octave
-dynare main.mod
+Open Two_household_model.mod and run to get get_ss.m
+In VS code terminal, open MATLAB or Octave, and run:
+```dynare Two_household_model.mod
 ```
 
-The model computes each scenario's steady state and first-order,
-40-period impulse responses to a 1% government-spending shock. It checks
-steady-state residuals and model diagnostics for the benchmark and checks
-Blanchard-Kahn conditions for each scenario.
-
-The five hand-to-mouth shares (`mu`) are 0, 0.192, 0.238, 0.340, and 0.99.
-The model labels them as the benchmark, Australia, Italy, United States, and
-an extreme theoretical test, respectively. These labels are scenario labels
-in the model, not claims that the values are current empirical estimates.
-
-## Outputs
-
-- `results_all_mu.mat` — saved scenario impulse responses, steady states, and
-  Dynare model structure.
-- `figures/irfs_all_mu.png` — comparison chart for output (`Y`), consumption
-  (`C`), labor (`L`), and investment (`I`) across all five scenarios, with
-  responses expressed as a percentage of each scenario's steady state.
-- Dynare also displays individual impulse-response plots and writes its
-  standard generated files under the model-named output directory.
+Dynare computes the steady state, checks the model, and runs a first-order
+stochastic simulation with 40-period responses. The reported
+variables are output (`Y`), aggregate and household consumption (`C`, `CR`,
+`CH`), aggregate and household labor (`L`, `LR`, `LH`), investment (`I`),
+capital next period (`K`), wages (`W`), and government spending (`G`).
 
 ## Model outline
 
-- **Firms:** Produce output with a Cobb-Douglas production function and hire
-  labor and rent capital at competitive factor prices. Productivity `A_bar`
-  is fixed.
-- **Ricardian households:** Choose consumption, labor, and investment, and
-  accumulate capital subject to their budget constraint and Euler equation.
-- **Hand-to-mouth households:** Choose labor and consume wage income net of
-  lump-sum taxes each period; they do not save.
+- **Firms:** maximizes profit by choosing capital it rents from households and hiring labor, subject to a Cobb-Douglas production function. For simplicity, productivity is fixed at `A_bar` and treated as exogenous because the experiment will involve only a government spending shock.
+- **Ricardian households:** maximises its expected discounted utility of consumption minus the disutility of working hours subject to its intertemporal budget constraint and capital accumulation. It chooses consumption `CR`, labor hours `LR` and capital next period `K` and can save by investing into capital intertemporally.
+- **Hand-to-mouth households:** faces a static problem, as it maximizes its utility of consumption minus the disutility of labor each period. It cannot save or borrow, meaning that there is no intertemporality
 - **Government:** Finances spending with lump-sum taxes (`T = G`). Spending
-  follows a log AR(1) process with persistence `rho_g`.
+  follows a log process with persistence `rho_g` and changes with stochastic shocks
+  `eps_g`.
 - **Aggregation:** `mu` is the hand-to-mouth share. Aggregate consumption and
-  labor are weighted averages across household types.
+  labor are weighted averages of the two household types.
 
 The calibration targets steady-state labor of one third and government
-spending equal to 20% of steady-state output. Baseline parameters include
-`beta = 0.96`, `alpha = 0.36`, `delta = 0.08`, `eta = 1`, `gy = 0.20`,
-`rho_g = 0.90`, and `A_bar = 1`.
+spending equal to 20% of steady-state output. The current baseline sets
+`mu = 0`, so the economy starts with no hand-to-mouth households. To study
+different household shares, `mu` changes to compare the resulting impulse
+responses.
+
+| Parameter | Baseline | Meaning |
+|---|---:|---|
+| `beta` | 0.96 | Household discount factor |
+| `alpha` | 0.36 | Capital share in production |
+| `delta` | 0.08 | Capital depreciation rate |
+| `eta` | 1 | Inverse Frisch elasticity / curvature of labor disutility |
+| `gy` | 0.20 | Steady-state government spending share of output |
+| `rho_g` | 0.90 | Persistence of government spending |
+| `A_bar` | 1 | Total factor productivity |
+| `mu` | 0 | Hand-to-mouth household share |
+
+`chi` is calibrated in the model to match the steady-state labor target.
