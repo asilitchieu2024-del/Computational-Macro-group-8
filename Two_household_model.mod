@@ -11,8 +11,10 @@ var
     RK //Rental rate of capital
     C // Aggregate Consumption
     L // Aggregate Labor
-    lambda //Lagrange multiplier
-    q //multiplier on capital accumulation NEED TO CHECK
+    T // Lump sum tax
+    G // Government spending
+    lambdaR //Lagrange multiplier for Ricardian Household
+    lambdaH //Lagrange multiplier for Hand to Mouth Household
 ;
 
 //Exogenous Shocks
@@ -32,6 +34,8 @@ parameters
     G_bar // gov spending level, G_bar = gy * Y_bar
     rho_g //persistence of government spending shock
     mu // share of Hand to Mouth households in the economy
+
+
 ;
 
 //Calibration of parameters NEED TO CHECK THE VALUES
@@ -42,21 +46,77 @@ eta = 1; // why
 gy = 0.2; // why
 rho_g = 0.9; // 
 A_bar = 1; // 
-mu = 0.5; // NEED TO CHECK: share of Hand to Mouth households in the economy
-// ALSO CHECK chi calibrated so L = 1/3 at mu = 0 (should equal 10.225681)
-chi   = (1-alpha)*Abar*kappa^alpha / ((Ybar - delta*kappa*(1/3) - Gbar)*(1/3)^(1+eta));
+mu = 0; // share of hand to mouth households in the economy, mu = 0 means no hand to mouth households, start at 0 to test
+
+
+// Calibration targets: L = 1/3, G = 0.2 of steady output
+kap = (alpha/(1/beta-1+delta))^(1/(1-alpha));   // kap = K/L in steady state (helper for solving by hand)
+Y_bar = A_bar*kap^alpha*(1/3);                   // output when L = 1/3 (helper)
+G_bar = gy*Y_bar;                                  // declared parameter
+chi   = (1-alpha)*A_bar*kap^alpha/((Y_bar-delta*kap*(1/3)-G_bar)*(1/3)^eta); // solved by hand if mu=0 chi=10.2267
+
 
 // Model Equations
 model;
 // Ricardian Household
 // FOC w.r.t CR
-1/CR = lambda;
+1/CR = lambdaR;
 
 // FOC w.r.t LR
-chi*LR^eta = lambda*W;
-
-// FOC w.r.t I
-q=lambda;
+chi*LR^eta = lambdaR*W;
 
 // FOC w.r.t K(+1)
-q=beta*(lambda(+1)*RK(+1)+(1-delta)*q(+1));
+lambdaR = beta*lambdaR(+1)*(RK(+1) + 1 - delta);
+
+//Ricardian Household Budget Constraint
+CR + (I/(1-mu)) = W*LR + (RK*K(-1)/(1-mu)) - T;
+
+// Hand to Mouth Household
+// FOC w.r.t CH
+1/CH = lambdaH;
+// FOC w.r.t LH
+chi*LH^eta = lambdaH*W;
+// Budget constraint of Hand to Mouth Household
+CH = W*LH-T;
+
+// Firm
+// FOC w.r.t L
+W = (1-alpha)*A_bar*K(-1)^alpha*L^(-alpha);
+// FOC w.r.t K
+RK = alpha*A_bar*K(-1)^(alpha-1)*L^(1-alpha);
+
+// Output
+Y = A_bar*K(-1)^alpha*L^(1-alpha);
+
+// Government
+T = G;
+
+// Spending shock 
+log(G/G_bar) = rho_g*log(G(-1)/G_bar) + eps_g;
+
+// Aggregation
+C = (1-mu)*CR + mu*CH;
+L = (1-mu)*LR + mu*LH;
+K = (1-delta)*K(-1) + I;
+
+end;
+
+// Steady state: using get_ss.m (fsolve)
+steady_state_model;
+[CR,LR,K,I,CH,LH,Y,W,RK,C,L,T,G,lambdaR,lambdaH] = get_ss(beta,alpha,delta,eta,chi,A_bar,G_bar,mu);
+end;
+
+// Solving the steady state and the model
+steady;
+// checking residuals
+resid;
+// checking the model consistency
+check;
+model_diagnostics;
+
+// Stochastic simulation
+shocks;
+ var eps_g; stderr sigma_g;
+end;
+
+stoch_simul(order=1, irf=40) Y C CR CH L LR LH I K W G;;
