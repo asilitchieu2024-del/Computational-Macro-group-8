@@ -1,3 +1,123 @@
 Starting Dynare (version 7.1).
 Calling Dynare with arguments: none
 Preprocessing time: 0h00m00s.
+
+STEADY-STATE RESULTS:
+
+CR      		 0.345637
+LR      		 0.333333
+K       		 1.8156
+I       		 0.145248
+CH      		 0.312136
+LH      		 0.36911
+Y       		 0.613606
+W       		 1.17812
+RK      		 0.121667
+C       		 0.345637
+L       		 0.333333
+T       		 0.122721
+G       		 0.122721
+lambdaR 		 2.89321
+lambdaH 		 3.20373
+
+
+Residuals of the static equations:
+Equation number  1: 1       :       0.000000
+Equation number  2: 2       :       0.000000
+Equation number  3: lambdaR :       0.000000
+Equation number  4: 4       :       0.000000
+Equation number  5: 5       :       0.000000
+Equation number  6: 6       :       0.000000
+Equation number  7: CH      :       0.000000
+Equation number  8: W       :       0.000000
+Equation number  9: RK      :       0.000000
+Equation number 10: Y       :       0.000000
+Equation number 11: T       :       0.000000
+Equation number 12: 12      :       0.000000
+Equation number 13: C       :       0.000000
+Equation number 14: L       :       0.000000
+Equation number 15: K       :       0.000000
+
+
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+          0.8763           0.8763                0
+             0.9              0.9                0
+           1.189            1.189                0
+       9.213e+49       -9.213e+49                0
+
+There are 2 eigenvalue(s) larger than 1 in modulus for 2 forward-looking variable(s).
+The order and rank conditions are verified.
+
+MODEL_DIAGNOSTICS:  No obvious problems with this mod-file were detected.
+
+MODEL SUMMARY
+
+  Number of variables:         15
+  Number of stochastic shocks: 1
+  Number of state variables:   2
+  Number of jumpers:           2
+  Number of static variables:  11
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables       eps_g
+eps_g        0.000100
+
+POLICY AND TRANSITION FUNCTIONS
+                                   Y               C              CR              CH               L              LR              LH               I               K               W               G
+Constant                    0.613606        0.345637        0.345637        0.312136        0.333333        0.333333        0.369110        0.145248        1.815602        1.178124        0.122721
+K(-1)                       0.077572        0.121314        0.121314        0.086749       -0.037428       -0.037428       -0.014475       -0.043743        0.876257        0.281222               0
+G(-1)                       0.341702       -0.409012       -0.409012       -0.489908        0.290039        0.290039        0.463710       -0.149286       -0.149286       -0.369038        0.900000
+eps_g                       0.046593       -0.055772       -0.055772       -0.066802        0.039549        0.039549        0.063230       -0.020356       -0.020356       -0.050321        0.122721
+
+
+THEORETICAL MOMENTS
+VARIABLE         MEAN  STD. DEV.   VARIANCE
+Y              0.6136     0.0009     0.0000
+C              0.3456     0.0015     0.0000
+CR             0.3456     0.0015     0.0000
+CH             0.3121     0.0017     0.0000
+L              0.3333     0.0010     0.0000
+LR             0.3333     0.0010     0.0000
+LH             0.3691     0.0015     0.0000
+I              0.1452     0.0004     0.0000
+K              1.8156     0.0028     0.0000
+W              1.1781     0.0018     0.0000
+G              0.1227     0.0028     0.0000
+
+
+
+MATRIX OF CORRELATIONS
+Variables          Y        C       CR       CH        L       LR       LH        I        K        W        G
+Y             1.0000  -0.9473  -0.9473  -0.9640   0.9704   0.9704   0.9825  -0.9983  -0.6688  -0.8847   0.9859
+C            -0.9473   1.0000   1.0000   0.9984  -0.9966  -0.9966  -0.9904   0.9271   0.8717   0.9874  -0.9875
+CR           -0.9473   1.0000   1.0000   0.9984  -0.9966  -0.9966  -0.9904   0.9271   0.8717   0.9874  -0.9875
+CH           -0.9640   0.9984   0.9984   1.0000  -0.9997  -0.9997  -0.9967   0.9469   0.8425   0.9768  -0.9949
+L             0.9704  -0.9966  -0.9966  -0.9997   1.0000   1.0000   0.9984  -0.9547  -0.8286  -0.9711   0.9971
+LR            0.9704  -0.9966  -0.9966  -0.9997   1.0000   1.0000   0.9984  -0.9547  -0.8286  -0.9711   0.9971
+LH            0.9825  -0.9904  -0.9904  -0.9967   0.9984   0.9984   1.0000  -0.9700  -0.7957  -0.9561   0.9998
+I            -0.9983   0.9271   0.9271   0.9469  -0.9547  -0.9547  -0.9700   1.0000   0.6244   0.8561  -0.9745
+K            -0.6688   0.8717   0.8717   0.8425  -0.8286  -0.8286  -0.7957   0.6244   1.0000   0.9382  -0.7837
+W            -0.8847   0.9874   0.9874   0.9768  -0.9711  -0.9711  -0.9561   0.8561   0.9382   1.0000  -0.9502
+G             0.9859  -0.9875  -0.9875  -0.9949   0.9971   0.9971   0.9998  -0.9745  -0.7837  -0.9502   1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order          1       2       3       4       5
+Y         0.8647  0.7474  0.6455  0.5572  0.4807
+C         0.9321  0.8670  0.8049  0.7460  0.6903
+CR        0.9321  0.8670  0.8049  0.7460  0.6903
+CH        0.9209  0.8471  0.7785  0.7147  0.6555
+L         0.9158  0.8380  0.7663  0.7003  0.6396
+LR        0.9158  0.8380  0.7663  0.7003  0.6396
+LH        0.9041  0.8173  0.7387  0.6676  0.6032
+I         0.8529  0.7264  0.6176  0.5241  0.4440
+K         0.9931  0.9753  0.9493  0.9170  0.8802
+W         0.9599  0.9164  0.8707  0.8240  0.7769
+G         0.9000  0.8100  0.7290  0.6561  0.5905
+Total computing time : 0h00m02s
+Note: 1 warning(s) encountered in the preprocessor
+Note: warning(s) encountered in MATLAB/Octave code

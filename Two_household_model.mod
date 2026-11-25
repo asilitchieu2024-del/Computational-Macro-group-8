@@ -34,8 +34,7 @@ parameters
     G_bar // gov spending level, G_bar = gy * Y_bar
     rho_g //persistence of government spending shock
     mu // share of Hand to Mouth households in the economy
-
-
+    sigma_g // std dev of government spending shock
 ;
 
 //Calibration of parameters NEED TO CHECK THE VALUES
@@ -47,6 +46,7 @@ gy = 0.2; // why
 rho_g = 0.9; // 
 A_bar = 1; // 
 mu = 0; // share of hand to mouth households in the economy, mu = 0 means no hand to mouth households, start at 0 to test
+sigma_g = 0.01; // std dev of government spending shock - 1% positive shock
 
 
 // Calibration targets: L = 1/3, G = 0.2 of steady output
@@ -103,7 +103,7 @@ end;
 
 // Steady state: using get_ss.m (fsolve)
 steady_state_model;
-[CR,LR,K,I,CH,LH,Y,W,RK,C,L,T,G,lambdaR,lambdaH] = get_ss(beta,alpha,delta,eta,chi,A_bar,G_bar,mu);
+[CR,LR,K,I,CH,LH,Y,W,RK,C,L,T,G,lambdaR,lambdaH] = get_ss(beta,alpha,delta,eta,chi,A_bar,G_bar,rho_g,mu);
 end;
 
 // Solving the steady state and the model
@@ -119,4 +119,4 @@ shocks;
  var eps_g; stderr sigma_g;
 end;
 
-stoch_simul(order=1, irf=40) Y C CR CH L LR LH I K W G;;
+stoch_simul(order=1, irf=40) Y C CR CH L LR LH I K W G;
