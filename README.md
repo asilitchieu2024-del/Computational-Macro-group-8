@@ -4,27 +4,26 @@ This folder contains a Dynare model where the program shows how fiscal multiplie
 
 ## Files
 
-- `Two_household_model.mod` — Dynare model set-up 
+- `Main.mod` — Dynare model set-up 
 - `plot_results.m` - loads results saved by main.mod and plots Y, C, L, and I after 1% government spending shock for all 5 values of `mu`
 - `get_ss.m` - program that computes steady state called by mod file
 
 ## Requirements
 
-- MATLAB or Octave with dynare
+- access to group 8 zip file 
+- MATLAB or GNU Octave version 11.3.0 with dynare
 - Dynare 7.1, installed and available on MATLAB/Octave
 
 ## Running the model
-
-Open Two_household_model.mod and run to get get_ss.m
-In VS code terminal, open MATLAB or Octave, and run:
-```dynare Two_household_model.mod
-```
-
-Dynare computes the steady state, checks the model, and runs a first-order
+1. extract folder from zip file; GROUP_8.zip
+2. Open Octave/MATLAB
+3. change current folder to the extracted folder
+4. run `dynare main.mod` in terminal
+5. Dynare computes the steady state, checks the model, opens graphs, and runs a first-order
 stochastic simulation with 40-period responses. The reported
 variables are output (`Y`), aggregate and household consumption (`C`, `CR`,
 `CH`), aggregate and household labor (`L`, `LR`, `LH`), investment (`I`),
-capital next period (`K`), wages (`W`), and government spending (`G`).
+capital next period (`K`), wages (`W`), and government spending (`G`). 
 
 ## Model outline
 
