@@ -5,7 +5,7 @@ This folder contains a Dynare model where the program shows how fiscal multiplie
 ## Files
 
 - `Two_household_model.mod` — Dynare model set-up 
-- `Two_household_model.log` - text record of dynare run 
+- `plot_results.m` - loads results saved by main.mod and plots Y, C, L, and I after 1% government spending shock for all 5 values of `mu`
 - `get_ss.m` - program that computes steady state called by mod file
 
 ## Requirements
