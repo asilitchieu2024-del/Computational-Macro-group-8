@@ -1,0 +1,8 @@
+# Ignore everything...
+*
+# ...except the files needed to run the model
+!main.mod
+!get_ss.m
+!plot_results.m
+!README.md
+!.gitignore
